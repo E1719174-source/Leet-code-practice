@@ -25,5 +25,6 @@ int main(void){
         }
     }
     printf("%d\n",answer);
-    
+    return 0;
 }
+

@@ -22,9 +22,22 @@
 		C14265332F67ED4300039DBC /* practice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = practice; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C142654B2F68216C00039DBC /* Exceptions for "3.16" folder in "practice" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				P3045.C,
+			);
+			target = C14265322F67ED4300039DBC /* practice */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C14265352F67ED4300039DBC /* 3.16 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C142654B2F68216C00039DBC /* Exceptions for "3.16" folder in "practice" target */,
+			);
 			path = 3.16;
 			sourceTree = "<group>";
 		};
