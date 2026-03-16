@@ -19,7 +19,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C14265252F67E63400039DBC /* luogu.C */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = luogu.C; sourceTree = "<group>"; };
+		C14265272F67EAEA00039DBC /* luogu.C */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = luogu.C; sourceTree = "<group>"; };
 		C14B5EC02F6652C3004BA31B /* practice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = practice; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -34,17 +34,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C14265062F679B1900039DBC /* New Group */ = {
+		C14265262F67EAE100039DBC /* 3.16 */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		C14265242F67E62B00039DBC /* 3.16 */ = {
-			isa = PBXGroup;
-			children = (
-				C14265252F67E63400039DBC /* luogu.C */,
+				C14265272F67EAEA00039DBC /* luogu.C */,
 			);
 			path = 3.16;
 			sourceTree = "<group>";
@@ -52,8 +45,7 @@
 		C14B5EB72F6652C3004BA31B = {
 			isa = PBXGroup;
 			children = (
-				C14265242F67E62B00039DBC /* 3.16 */,
-				C14265062F679B1900039DBC /* New Group */,
+				C14265262F67EAE100039DBC /* 3.16 */,
 				C14B5EC12F6652C3004BA31B /* Products */,
 			);
 			sourceTree = "<group>";
