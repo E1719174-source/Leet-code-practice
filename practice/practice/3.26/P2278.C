@@ -1,102 +1,125 @@
 //
-//  P1090.C
+//  P2278.C
 //  practice
 //
 //  Created by 王钰童 on 2026/3/25.
-//
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct task{
+    int index;
+    int arrive;
+    int work;
+    int priority;
+}task;
 
-void swap(int *a,int *b){
-    int tempt;
+task tasklist[15005];
+int size;
+
+
+void swap(task *a,task *b){
+    task tempt;
     tempt=*a;
     *a=*b;
     *b=tempt;
 }
 
-int heap[10005]={0};
-int size=0;
-void push(int x){
-    heap[size++]=x;
+void push (task x){
+    tasklist[size++]=x;
     int curr=size-1;
-    //parents=(curr-1)/2;
-    
-    while(curr!=0){
-        if(heap[curr]<heap[(curr-1)/2]){
-            swap(&heap[curr],&heap[(curr-1)/2]);
+    while(curr>0){
+        if((tasklist[curr].priority>tasklist[(curr-1)/2].priority)||(tasklist[curr].priority==tasklist[(curr-1)/2].priority&&tasklist[curr].arrive<tasklist[(curr-1)/2].arrive)){
+            swap(&tasklist[curr],&tasklist[(curr-1)/2]);
             curr=(curr-1)/2;
         }
-        else{
-            return;
+       
+        else break;
         }
+        
     }
     
-}
 
 
-void pop(){
-    //turn the last to the first,the first disappear
-    heap[0]=heap[size-1];
-    size--;
-    int curr=0;
-    while(curr*2+1<=size-1){
-        int minson,minson_index;
-        if(curr*2+2==size){
-            if(heap[curr]>heap[curr*2+1])
-                swap(&heap[curr],&heap[curr*2+1]);
-            return;
+
+void pop(void) {
+    if (size <= 0) return;
+    // 1. 把末尾提到堆顶，并减小 size
+    tasklist[0] = tasklist[--size];
+    if (size == 0) return;
+
+    int curr = 0;
+    while (curr * 2 + 1 < size) {
+        int left = curr * 2 + 1;
+        int right = curr * 2 + 2;
+        int target = left; // 假设左孩子更牛
+
+        // 2. 如果有右孩子，且右孩子优先级更高（或同级但更早到）
+        if (right < size) {
+            if (tasklist[right].priority > tasklist[left].priority ||
+               (tasklist[right].priority == tasklist[left].priority && tasklist[right].arrive < tasklist[left].arrive)) {
+                target = right;
+            }
         }
-        if(heap[curr*2+1]<heap[curr*2+2]){
-            minson=heap[curr*2+1];
-            minson_index=curr*2+1;
-        }
-        else{
-            minson=heap[curr*2+2];
-            minson_index=curr*2+2;
-        }
-        if(minson<heap[curr]){
-            swap(&heap[curr],&heap[minson_index]);
-            curr=minson_index;
-        }
-        else{
+
+        
+        if (tasklist[target].priority > tasklist[curr].priority ||
+           (tasklist[target].priority == tasklist[curr].priority && tasklist[target].arrive < tasklist[curr].arrive)) {
+            swap(&tasklist[curr], &tasklist[target]);
+            curr = target;
+        } else {
             break;
         }
     }
-    
-    
-    
 }
-
 
 int main(void){
-    int n;
-    scanf("%d",&n);
-    int fruit[10005]={0};
-    for(int i=0;i<n;i++){
-        int num;
-        scanf("%d",&num);
-        fruit[i]=num;
+    size=0;
+    task ptr;
+    long long time=0;
+    //firstly check the session( non-time ) when tasks are adding
+    //the while loop shows time flows. the time will be updated to ptr's arrival
+    while(fscanf(stdin,"%d %d %d %d",&ptr.index,&ptr.arrive,&ptr.work,&ptr.priority)==4){
+        
+        if(size==0){
+            push(ptr);
+            time=ptr.arrive;
+            continue;
+        }
+        else{
+            //session 1:before ptr arrive, what happened:
+            //situation of session 1: head task is done before ptr arrived
+            while(size>0&&time+tasklist[0].work<=ptr.arrive){
+                time+=tasklist[0].work;
+                printf("%d %lld\n",tasklist[0].index,time);
+                pop();
+                
+            }
+            //session 2:when ptr arrived ,what happened:
+            //if their is a head task still working, meaning the arrival of ptr disrupt it
+            if(size>0){
+               
+                //what current head task's work time had changed in work because of time flows
+                tasklist[0].work -= (ptr.arrive - time);
+
+            }
+            //时间流动的锚定
+            time=ptr.arrive;
+            push(ptr);
+            
+        }
+           
+        }
+    
+    //then clear the buffer tasks：this is very easy as the priority will never change and we just need to consider timeflow and print them out
+    while(size>0){
+        time=time+tasklist[0].work;
+        printf("%d %lld\n",tasklist[0].index,time);
+        pop();
+        
     }
     
-    long sum=0;
-    for(int i=0;i<n;i++){
-        push(fruit[i]);
-    }
-    int sum_now;
-    while(size>1){
-        sum_now=0;
-        sum_now=heap[0];
-        pop();
-        sum_now+=heap[0];
-        pop();
-        push(sum_now);
-        sum+=sum_now;
-    }
-    printf("%ld",sum);
-   
+    
+    
 }
-
-
-
-
